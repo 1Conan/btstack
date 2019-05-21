@@ -12,7 +12,11 @@ ADDITIONAL_CFLAGS  = -I.. \
 	-I$(BTSTACK_ROOT)/platform/corefoundation  \
 	-Wno-implicit-function-declaration
 
-ADDITIONAL_LDFLAGS = -L../src/.theos/obj -lBTstack
+ifeq ($(FINALPACKAGE),1)
+ADDITIONAL_LDFLAGS = -L../.theos/obj -lBTstack
+else 
+ADDITIONAL_LDFLAGS = -L../.theos/obj/debug -lBTstack
+endif
 
 TOOL_NAME = inquiry l2cap_test rfcomm_echo rfcomm_cat rfcomm_test l2cap_server l2cap_throughput
 

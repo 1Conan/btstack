@@ -13,7 +13,11 @@ BTstack_CFLAGS =  -g -I.. \
 	-I$(BTSTACK_ROOT)/platform/daemon/src \
 	-I$(BTSTACK_ROOT)/platform/corefoundation \
 
-BTstack_LDFLAGS = -L../src/.theos/obj -lBTstack
+ifeq ($(FINALPACKAGE),1)
+BTstack_LDFLAGS = -L../.theos/obj -lBTstack
+else 
+BTstack_LDFLAGS = -L../.theos/obj/debug -lBTstack
+endif
 BTstack_LDFLAGS += -F../Frameworks 
 BTstack_PRIVATE_FRAMEWORKS = Preferences
 
