@@ -28,5 +28,13 @@ l2cap_test_FILES       = $(BTSTACK_ROOT)/platform/daemon/example/test.c
 l2cap_server_FILES     = $(BTSTACK_ROOT)/platform/daemon/example/l2cap_server.c
 l2cap_throughput_FILES = $(BTSTACK_ROOT)/platform/daemon/example/l2cap_throughput.c
 
+inquiry_CODESIGN_FLAGS = -S../ent.xml
+rfcomm_echo_CODESIGN_FLAGS = -S../ent.xml
+rfcomm_cat_CODESIGN_FLAGS = -S../ent.xml
+rfcomm_test_CODESIGN_FLAGS = -S../ent.xml
+l2cap_test_CODESIGN_FLAGS = -S../ent.xml
+l2cap_server_CODESIGN_FLAGS = -S../ent.xml
+l2cap_throughput_CODESIGN_FLAGS = -S../ent.xml
+
 include $(THEOS)/makefiles/common.mk
 include $(THEOS_MAKE_PATH)/tool.mk
