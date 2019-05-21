@@ -31,5 +31,6 @@
 #define UART_SPEED 921600
 #define USE_LAUNCHD
 #define USE_SPRINGBOARD
+#define HAVE_UNIX_SOCKETS
 
 #endif

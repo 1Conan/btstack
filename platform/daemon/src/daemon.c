@@ -187,10 +187,12 @@ typedef struct btstack_linked_list_gatt_client_helper{
     uint8_t  long_query_type;
 } btstack_linked_list_gatt_client_helper_t;
 
+#ifdef ENABLE_BLE
 typedef struct {
     btstack_linked_item_t       item;
     gatt_client_notification_t  notification_listener;
 } btstack_linked_list_gatt_client_notification_t;
+#endif
 
 // MARK: prototypes
 static void handle_sdp_rfcomm_service_result(uint8_t packet_type, uint16_t channel, uint8_t *packet, uint16_t size);
@@ -1544,6 +1546,7 @@ static void daemon_packet_handler(void * connection, uint8_t packet_type, uint16
 
                 case BTSTACK_EVENT_STATE:
                     if (btstack_event_state_get_state(packet) != HCI_STATE_WORKING) break;
+#ifndef HAVE_PLATFORM_IPHONE_OS
                     if (tlv_setup_done) break;
 
                     // setup TLV using local address as part of the name
@@ -1562,6 +1565,7 @@ static void daemon_packet_handler(void * connection, uint8_t packet_type, uint16
                     le_device_db_set_local_bd_addr(addr);
 
                     tlv_setup_done = 1;
+#endif
                     break;
 
                 case HCI_EVENT_NUMBER_OF_COMPLETED_PACKETS:

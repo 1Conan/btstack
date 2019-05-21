@@ -1,6 +1,6 @@
 TARGET := iphone:clang
 TARGET_IPHONEOS_DEPLOYMENT_VERSION = 3.0
-ARCHS = armv7
+ARCHS = armv7 arm64
 
 TOOL_NAME = PatchBlueTool
 

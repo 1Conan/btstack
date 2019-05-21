@@ -45,6 +45,8 @@ BTdaemon_FILES = \
 	../SpringBoardAccess/SpringBoardAccess.c       \
 
 BTdaemon_CFLAGS = \
+	-Wno-unused-variable \
+	-Wno-implicit-function-declaration \
 	-I$(BTSTACK_ROOT)/src \
 	-I$(BTSTACK_ROOT)/platform/posix \
 	-I$(BTSTACK_ROOT)/platform/daemon/src \

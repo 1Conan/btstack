@@ -1,6 +1,6 @@
 TARGET := iphone:clang
 TARGET_IPHONEOS_DEPLOYMENT_VERSION = 3.0
-ARCHS = armv7
+ARCHS = armv7 arm64
 
 BTSTACK_ROOT=../../..
 # VPATH += $(BTSTACK_ROOT)/platform/daemon/example
@@ -10,6 +10,7 @@ ADDITIONAL_CFLAGS  = -I.. \
 	-I$(BTSTACK_ROOT)/platform/daemon/src \
 	-I$(BTSTACK_ROOT)/platform/posix  \
 	-I$(BTSTACK_ROOT)/platform/corefoundation  \
+	-Wno-implicit-function-declaration
 
 ADDITIONAL_LDFLAGS = -L../src/.theos/obj -lBTstack
 
