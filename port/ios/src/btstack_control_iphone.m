@@ -631,7 +631,9 @@ static int iphone_off(void){
 
     // reload bluetoothd
     if (iphone_os_at_least_110()) {
+        log_info("iphone_off: reload bluetoothd");
         system ("launchctl load /System/Library/LaunchDaemons/com.apple.bluetoothd.plist");
+        log_info("iphone_off: done\n");
     }
 
     // reload BTServer
