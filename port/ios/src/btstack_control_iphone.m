@@ -163,6 +163,13 @@ static int iphone_os_at_least_60(void){
     return kCFCoreFoundationVersionNumber >= 788.0;
 }
 
+/**
+ * check OS version for >= 11.0
+ */
+static int iphone_os_at_least_110(void){
+    return kCFCoreFoundationVersionNumber >= 1443.0;
+}
+
 /** 
  * get machine name
  */
@@ -505,6 +512,11 @@ static int iphone_on (void){
         err = system ("launchctl unload /System/Library/LaunchDaemons/com.apple.BTServer.le.plist");
         err = system ("launchctl unload /System/Library/LaunchDaemons/com.apple.BlueTool.plist");
     }
+
+    // unload bluetoothd
+    if (iphone_os_at_least_110()) {
+        err = system ("launchctl unload /System/Library/LaunchDaemons/com.apple.bluetoothd.plist");
+    }
     
     // check for os version >= 4.0
     int os4x = iphone_os_at_least_40();
@@ -532,10 +544,11 @@ static int iphone_on (void){
         if (fd > 0){
             close(fd);
         } else {
-            log_error( "bt_control.c:iphone_on(): Failed to open '%s' again, trying killall BTServer and killall %s\n", hci_transport_config_uart->device_name, bluetool);
+            log_error( "bt_control.c:iphone_on(): Failed to open '%s' again, trying killall BTServer, killall bluetoothd, and killall %s\n", hci_transport_config_uart->device_name, bluetool);
             system("killall -9 BTServer");
             system("killall -9 BlueToolH4");
             system("killall -9 BlueTool");
+            system("killall -9 bluetoothd");
             sleep(3); 
         }
     }
@@ -614,6 +627,11 @@ static int iphone_off(void){
         system ("launchctl load /System/Library/LaunchDaemons/com.apple.BlueTool.plist");
         system ("launchctl load /System/Library/LaunchDaemons/com.apple.BTServer.le.plist");
         log_info("iphone_off: done\n");
+    }
+
+    // reload bluetoothd
+    if (iphone_os_at_least_110()) {
+        system ("launchctl load /System/Library/LaunchDaemons/com.apple.bluetoothd.plist");
     }
 
     // reload BTServer
